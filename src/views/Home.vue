@@ -6,6 +6,10 @@
         <el-menu :default-openeds="['1', '3']" style="min-height: 99vh; height: 100%; overflow-x: hidden;"
           background-color="#2f4156" text-color="#fff" active-text-color="#ffd04b" :collapse-transition="true"
           :collapse="isCollapse">
+          <div style="height: 60px; line-height: 60px; text-align: center;">
+            <img src="../assets/logo.png" alt="" style="width: 20px; position: relative; top: 5px; margin-right: 5px;">
+            <b style="color: #eee;" v-show="!isCollapse">后台管理系统</b>
+          </div>
           <el-submenu index="1" style="background-color: #2f4156;">
             <template slot="title">
               <i class="el-icon-message"></i>
@@ -70,7 +74,7 @@
             <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
           </div>
           <el-dropdown style="width: 80px; cursor: pointer;">
-            <span>阿尔萨斯</span><i class="el-icon-arrow-down" style="margin-left: 5px;"></i>
+            <span>姓名示例</span><i class="el-icon-arrow-down" style="margin-left: 5px;"></i>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>查看</el-dropdown-item>
               <el-dropdown-item>新增</el-dropdown-item>
@@ -110,7 +114,7 @@ export default {
       tableData: Array(10).fill(item),
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
-      sideWidth: 200
+      sideWidth: 200 
     }
   },
   methods: {
