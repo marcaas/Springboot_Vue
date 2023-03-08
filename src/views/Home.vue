@@ -84,14 +84,36 @@
         </el-header>
 
         <el-main>
-          <el-table :data="tableData">
+          <div style="margin: 10px 0;">
+            <el-input style="width: 200px;" suffix-icon="el-icon-search" placeholder="请输入名称"></el-input>
+            <el-input style="width: 200px;" suffix-icon="el-icon-search" placeholder="请输入时间" class="ml-5"></el-input>
+            <el-input style="width: 200px;" suffix-icon="el-icon-search" placeholder="请输入地址" class="ml-5"></el-input>
+            <el-button class="ml-5" type="primary">搜索</el-button>
+            <el-button type="danger" style="float: right;">删除</el-button>
+            <el-button type="primary" style="float: right;">导出</el-button>
+            <el-button type="primary" style="float: right;">导入</el-button>
+            <el-button type="primary" style="float: right;">新增</el-button>
+          </div>
+
+          <el-table :data="tableData" border stripe>
             <el-table-column prop="date" label="日期" width="140">
             </el-table-column>
             <el-table-column prop="name" label="姓名" width="120">
             </el-table-column>
             <el-table-column prop="address" label="地址">
             </el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <el-button type="danger" style="float: right;" class="ml-5">删除</el-button>
+                <el-button type="success" style="float: right;">编辑</el-button>
+              </template>
+            </el-table-column>
           </el-table>
+          <div style="padding: 10px 0;">
+            <el-pagination :current-page="currentPage4" :page-sizes="[5, 10, 15, 20]" :page-size="10"
+              layout="total, sizes, prev, pager, next, jumper" :total="400">
+            </el-pagination>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -114,7 +136,7 @@ export default {
       tableData: Array(10).fill(item),
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
-      sideWidth: 200 
+      sideWidth: 200
     }
   },
   methods: {
