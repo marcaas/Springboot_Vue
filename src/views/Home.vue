@@ -111,7 +111,7 @@
           </el-table>
           <div style="padding: 10px 0;">
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNum"
-              :page-sizes="[2, 5, 10, 20]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+              :page-sizes="[2, 5, 10, 15]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
               :total="total">
             </el-pagination>
           </div>
@@ -132,7 +132,7 @@ export default {
       tableData: [],
       total: 0,
       pageNum: 1,
-      pageSize: 2,
+      pageSize: 10,
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
       sideWidth: 200
