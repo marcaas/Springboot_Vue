@@ -96,12 +96,12 @@
           </div>
 
           <el-table :data="tableData" border stripe>
-            <el-table-column prop="date" label="日期" width="140">
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="地址">
-            </el-table-column>
+            <el-table-column prop="id" label="ID" width="80"></el-table-column>
+            <el-table-column prop="username" label="用户名" width="140"></el-table-column>
+            <el-table-column prop="nickname" label="昵称" width="120"></el-table-column>
+            <el-table-column prop="address" label="地址"></el-table-column>
+            <el-table-column prop="email" label="邮箱"></el-table-column>
+            <el-table-column prop="phone" label="电话"></el-table-column>
             <el-table-column>
               <template slot-scope="scope">
                 <el-button type="danger" style="float: right;" class="ml-5">删除</el-button>
@@ -110,8 +110,9 @@
             </el-table-column>
           </el-table>
           <div style="padding: 10px 0;">
-            <el-pagination :current-page="currentPage4" :page-sizes="[5, 10, 15, 20]" :page-size="10"
-              layout="total, sizes, prev, pager, next, jumper" :total="400">
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNum"
+              :page-sizes="[2, 5, 10, 20]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+              :total="total">
             </el-pagination>
           </div>
         </el-main>
@@ -127,17 +128,19 @@ import HelloWorld from '@/components/HelloWorld.vue'
 export default {
   name: 'Home',
   data() {
-    const item = {
-      date: '2023/3/6',
-      name: '姓名示例',
-      address: '地址示例'
-    };
     return {
-      tableData: Array(10).fill(item),
+      tableData: [],
+      total: 0,
+      pageNum: 1,
+      pageSize: 2,
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
       sideWidth: 200
     }
+  },
+  created() {
+    // 请求分页查询数据
+    this.load()
   },
   methods: {
     collapse() {// 点击收缩按钮触发
@@ -145,6 +148,21 @@ export default {
       if (this.isCollapse) {
         this.sideWidth = 64
       }
+    },
+    load() {
+      fetch("http://localhost:9090/user/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize).then(res => res.json()).then(res => {
+      console.log(res)
+      this.tableData = res.data
+      this.total = res.total
+    })
+    },
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize
+      this.load()
+    },
+    handleCurrentChange(pageNum) {
+      this.pageNum = pageNum
+      this.load()
     }
   }
 }
